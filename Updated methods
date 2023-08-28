@@ -1,0 +1,38 @@
+public class BookService implements BookingInterface {
+
+
+    public Booking[] bookings;
+
+
+    public BookService(Booking[] bookings) {
+        this.bookings = bookings;
+    }
+
+    @Override
+    public void bookAnnouncement(Announcements announcements, User user) {
+        Booking booking = new Booking(user, announcements);
+        for (int i = 0; i < bookings.length; i++) {
+            Announcements[] arr1 = new Announcements[]{bookings[i].getAnnouncement()};
+            Announcements[] arr2 = Arrays.copyOf(arr1, arr1.length + 1);
+            arr2[arr2.length - 1] = booking.getAnnouncement();
+            bookings[i].setAnnouncement(announcements);
+            bookings[i].setUser(user);
+            if (bookings[i].getAnnouncement().equals(announcements) && !bookings[i].getAnnouncement().isBooked())
+                for (int zz = 0; zz < bookings.length; zz++) {
+                    bookings[i].getAnnouncement().setBooked(true);
+                    System.out.println("I rent this apartment" + announcements);
+                    break;
+                }}
+
+    }
+
+    @Override
+    public void unBookAnnouncement(Announcements announcements, User user) {
+        for (int i = 0; i < bookings.length; i++) {
+            bookings[i].getAnnouncement().setBooked(false);
+            System.out.println("This apartment is free" + announcements);
+            break;
+        }
+
+    }
+}
